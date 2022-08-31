@@ -6,11 +6,9 @@ data "aws_s3_bucket" "spark_logs_bucket" {
   bucket = var.spark_logs_bucket_name
 }
 
-resource "aws_s3_bucket_object" "spark_logs_dir" {
+resource "aws_s3_object" "spark_logs_dir" {
   bucket = data.aws_s3_bucket.spark_logs_bucket.id
-  acl    = "private"
   key    = "logs/"
-  source = "/dev/null"
 }
 
 resource "kubernetes_namespace" "spark_namespace" {
@@ -112,5 +110,5 @@ module "spark_history-server" {
   spark_logs_bucket_name     = var.spark_logs_bucket_name
   certificate_issuer         = var.certificate_issuer
 
-  depends_on = [helm_release.spark-operator, aws_s3_bucket_object.spark_logs_dir]
+  depends_on = [helm_release.spark-operator, aws_s3_object.spark_logs_dir]
 }
