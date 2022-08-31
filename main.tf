@@ -20,7 +20,7 @@ resource "kubernetes_namespace" "spark_namespace" {
 }
 
 resource "aws_iam_policy" "spark_bucket_access_policy" {
-  for_each = { spark_data_bucket= data.aws_s3_bucket.spark_data_bucket.arn, spark_logs_bucket= data.aws_s3_bucket.spark_logs_bucket.arn }
+  for_each    = { spark_data_bucket = data.aws_s3_bucket.spark_data_bucket.arn, spark_logs_bucket = data.aws_s3_bucket.spark_logs_bucket.arn }
   name        = "${each.key}_access_policy"
   description = "IAM policy providing access to ${each.key}."
 
@@ -103,14 +103,14 @@ resource "helm_release" "spark-operator" {
 }
 
 module "spark_history-server" {
-  source                       = "./spark_history_server"
-  spark_namespace              = var.spark_namespace
-  domain                       = var.domain
-  node_selector                = var.node_selector
-  spark_service_account        = "spark-operator-spark"
-  history_server_spark_image   = var.history_server_spark_image
-  spark_logs_bucket_name       = var.spark_logs_bucket_name
-  certificate_issuer           = var.certificate_issuer
+  source                     = "./spark_history_server"
+  spark_namespace            = var.spark_namespace
+  domain                     = var.domain
+  node_selector              = var.node_selector
+  spark_service_account      = "spark-operator-spark"
+  history_server_spark_image = var.history_server_spark_image
+  spark_logs_bucket_name     = var.spark_logs_bucket_name
+  certificate_issuer         = var.certificate_issuer
 
   depends_on = [helm_release.spark-operator, aws_s3_bucket_object.spark_logs_dir]
 }

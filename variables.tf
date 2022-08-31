@@ -28,12 +28,12 @@ variable "spark_data_bucket_name" {
 }
 
 variable "spark_logs_bucket_name" {
-  description = "The name of the S3 bucket at which logs of executed spark applications will be stored."    
+  description = "The name of the S3 bucket at which logs of executed spark applications will be stored."
 }
 
 variable "spark_namespace" {
   description = "An optional namespace to be created for deploying spark application in the cluster. If not specified a default namespace named \"spark\" will be created."
-  default = "spark"
+  default     = "spark"
 }
 
 variable "node_selector" {
