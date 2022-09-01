@@ -4,7 +4,7 @@ variable "namespace" {
 }
 
 variable "domain" {
-  description = "The domain of the eks cluster."
+  description = "The external DNS domain of the EKS cluster."
 }
 
 variable "certificate_issuer" {

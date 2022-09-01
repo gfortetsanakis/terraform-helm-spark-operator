@@ -9,7 +9,7 @@ The module also deploys a spark history server on the cluster from which the log
 | Parameter          | Type     | Description                                                                                    |
 | ------------------ |--------- | ---------------------------------------------------------------------------------------------- |
 | namespace                   | Required | The kubernetes namespace at which the spark operator chart will be deployed           |
-| domain                      | Required | The domain of the EKS cluster                                                         |
+| domain                      | Required | The external DNS domain of the EKS cluster                                            |
 | certificate_issuer          | Required | The name of the certificate issuer that will be used to issue certificates for spark applications |
 | openid_connect_provider_arn | Required | The ARN of the OpenID connect provider of the cluster                                 |
 | openid_connect_provider_url | Required | The URL of the OpenID connect provider of the cluster                                 |
@@ -23,6 +23,8 @@ The module also deploys a spark history server on the cluster from which the log
 
 ## Module output parameters
 
-| Parameter              | Description                                                    |
-| ---------------------- | -------------------------------------------------------------- |
-| spark_service_account  | The name of the service account created for the spark operator |
+| Parameter                | Description                                                                     |
+| ------------------------ | ------------------------------------------------------------------------------- |
+| spark_namespace          | The namespace created by the chart to be used for deploying spark applications  |
+| spark_service_account    | The name of the service account created for the spark operator                  |
+| spark_history_server_url | The URL of the spark history server                                             |

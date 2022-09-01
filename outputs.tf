@@ -1,3 +1,7 @@
+output "spark_namespace" {
+  value = var.spark_namespace
+}
+
 output "spark_service_account" {
   value = "spark-operator-spark"
 }
