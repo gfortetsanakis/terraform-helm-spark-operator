@@ -7,7 +7,7 @@ data "aws_s3_bucket" "spark_logs_bucket" {
 }
 
 resource "aws_s3_object" "spark_logs_dir" {
-  bucket = data.aws_s3_bucket.spark_logs_bucket.id
+  bucket = var.spark_logs_bucket_name
   key    = "logs/"
 }
 
