@@ -2,8 +2,8 @@ variable "namespace" {
   description = "The kubernetes namespace at which the spark operator chart will be deployed."
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster at which the spark operator will be installed."
+variable "eks_cluster_properties" {
+  description = "A map variable containing properties of the EKS cluster."
 }
 
 variable "domain" {

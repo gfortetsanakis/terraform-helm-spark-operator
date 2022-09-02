@@ -9,7 +9,7 @@ The module also deploys a spark history server on the cluster from which the log
 | Parameter          | Type     | Description                                                                                    |
 | ------------------ |--------- | ---------------------------------------------------------------------------------------------- |
 | namespace                   | Required | The kubernetes namespace at which the spark operator chart will be deployed           |
-| eks_cluster_name            | Required | The name of the eks cluster at which the spark operator will be installed             |
+| eks_cluster_properties      | Required | A map variable containing properties of the EKS cluster                               |
 | domain                      | Required | The external DNS domain of the EKS cluster                                            |
 | certificate_issuer          | Required | The name of the certificate issuer that will be used to issue certificates for spark applications |
 | history_server_spark_image  | Required | The spark image used for deploying the spark history server on the cluster            |
@@ -19,6 +19,13 @@ The module also deploys a spark history server on the cluster from which the log
 | spark_namespace             | Optional | An optional namespace to be created for deploying spark application in the cluster. If not specified a default namespace named "spark" will be created |
 | node_selector               | Optional | A map variable with nodeSelector labels applied when placing pods of the chart on the cluster |
 
+The structure of the "eks_cluster_properties" variable is as follows:
+```
+eks_cluster_properties = {
+  openid_connect_provider_url = <URL of OpenID connect provider of EKS cluster>
+  openid_connect_provider_arn = <ARN of OpenID connect provider of EKS cluster>  
+}
+```
 
 ## Module output parameters
 

@@ -1,11 +1,3 @@
-data "aws_eks_cluster" "eks_cluster" {
-  name = var.eks_cluster_name
-}
-
-data "aws_iam_openid_connect_provider" "eks_cluster_oidc" {
-  url = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
-}
-
 data "aws_s3_bucket" "spark_data_bucket" {
   bucket = var.spark_data_bucket_name
 }
