@@ -1,3 +1,11 @@
+data "aws_eks_cluster" "eks_cluster" {
+  name = var.eks_cluster_name
+}
+
+data "aws_iam_openid_connect_provider" "eks_cluster_oidc" {
+  url = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+}
+
 data "aws_s3_bucket" "spark_data_bucket" {
   bucket = var.spark_data_bucket_name
 }
@@ -59,12 +67,12 @@ resource "aws_iam_role" "spark_s3_role" {
       {
         "Effect" : "Allow",
         "Principal" : {
-          "Federated" : "${var.openid_connect_provider_arn}"
+          "Federated" : "${local.openid_connect_provider_arn}"
         },
         "Action" : "sts:AssumeRoleWithWebIdentity",
         "Condition" : {
           "StringEquals" : {
-            "${var.openid_connect_provider_url}:sub" : "system:serviceaccount:${var.spark_namespace}:spark-operator-spark"
+            "${local.openid_connect_provider_url}:sub" : "system:serviceaccount:${var.spark_namespace}:spark-operator-spark"
           }
         }
       }

@@ -1,6 +1,9 @@
-
 variable "namespace" {
   description = "The kubernetes namespace at which the spark operator chart will be deployed."
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster at which the spark operator will be installed."
 }
 
 variable "domain" {
@@ -9,14 +12,6 @@ variable "domain" {
 
 variable "certificate_issuer" {
   description = "The name of the certificate issuer that will be used to issue certificates for spark applications running on the cluster."
-}
-
-variable "openid_connect_provider_arn" {
-  description = "The ARN of the OpenID connect provider of the cluster"
-}
-
-variable "openid_connect_provider_url" {
-  description = "The URL of the OpenID connect provider of the cluster"
 }
 
 variable "history_server_spark_image" {
