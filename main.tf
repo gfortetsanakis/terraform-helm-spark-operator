@@ -1,11 +1,3 @@
-data "aws_s3_bucket" "spark_data_bucket" {
-  bucket = var.spark_data_bucket_name
-}
-
-data "aws_s3_bucket" "spark_logs_bucket" {
-  bucket = var.spark_logs_bucket_name
-}
-
 resource "aws_s3_object" "spark_logs_dir" {
   bucket = var.spark_logs_bucket_name
   key    = "logs/"
@@ -18,7 +10,7 @@ resource "kubernetes_namespace" "spark_namespace" {
 }
 
 resource "aws_iam_policy" "spark_bucket_access_policy" {
-  for_each    = { spark_data_bucket = data.aws_s3_bucket.spark_data_bucket.arn, spark_logs_bucket = data.aws_s3_bucket.spark_logs_bucket.arn }
+  for_each    = local.s3_buckets
   name        = "${each.key}_access_policy"
   description = "IAM policy providing access to ${each.key}."
 
@@ -34,7 +26,7 @@ resource "aws_iam_policy" "spark_bucket_access_policy" {
           "s3:DeleteObject"
         ],
         "Resource" : [
-          "${each.value}/*"
+          "arn:aws:s3:::${each.value}/*"
         ]
       },
       {
@@ -44,7 +36,7 @@ resource "aws_iam_policy" "spark_bucket_access_policy" {
           "s3:ListBucket"
         ],
         "Resource" : [
-          "${each.value}"
+          "arn:aws:s3:::${each.value}"
         ]
       }
     ]
