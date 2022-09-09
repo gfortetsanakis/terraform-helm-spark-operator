@@ -3,7 +3,7 @@ locals {
   openid_connect_provider_arn = var.eks_cluster_properties["openid_connect_provider_arn"]
 
   s3_buckets = {
-    spark_logs_bucket = "spark-lab-events-logs-bucket"
-    spark_data_bucket = "spark-lab-data-warehouse-bucket"
+    spark_logs_bucket = var.spark_logs_bucket_name
+    spark_data_bucket = var.spark_data_bucket_name
   }
 }
